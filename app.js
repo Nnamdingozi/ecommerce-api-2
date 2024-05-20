@@ -1,5 +1,6 @@
 'use strict'
 require('dotenv').config();
+const createError = require('http-errors')
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -22,7 +23,8 @@ if(req.app.get('env') !== 'development') {
 }
 // set locals to provide error only in development
 res.locals.message = err.message
-res.locals.error = req.app.get('env') === 'development'? err : {};
+res.locals.error = req.app.get('env') === 'development'? err : {}
+res.status(err.status || 500)
 });
 
 app.get('/', (req, res) => {
