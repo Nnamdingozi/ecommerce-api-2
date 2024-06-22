@@ -11,13 +11,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.orders, {
+        foreignKey: 'user_id',
+        as: 'orders'
+      });
+      User.hasMany(models.Merchant, {
+        foreignKey: 'admin_id',
+        as: 'merchants'
+      });
+      User.belongsTo(models.Countries, {
+        foreignKey: 'ountry_code',
+        as: 'countries'
+      });
+      
     }
   }
   User.init({
     full_name: DataTypes.STRING,
     email: DataTypes.STRING,
     phone: DataTypes.BIGINT,
-    country_code: DataTypes.STRING
+    country_code: 
+    {
+      type: DataTypes.STRING,
+      references: {
+        model: 'Countries',
+        id: 'id'
+      }
+
+    }
   }, {
     sequelize,
     modelName: 'User',

@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
 
 try {
     sequelize.authenticate()
-        .then(r =>
+        .then(()=>
             console.log('INFO: Connection to database has been established successfully.')
         );
 } catch (err) {
